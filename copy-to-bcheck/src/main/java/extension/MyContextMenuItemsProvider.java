@@ -40,7 +40,16 @@ public class MyContextMenuItemsProvider implements ContextMenuItemsProvider
             hostBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "host" , ""));
             menuItemList.add(hostBcheck);
 
-            passiveBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "passive", event.messageEditorRequestResponse().get().requestResponse().response().toString().substring(event.messageEditorRequestResponse().get().selectionOffsets().get().startIndexInclusive(), event.messageEditorRequestResponse().get().selectionOffsets().get().endIndexExclusive())));
+            String args = "";
+
+            if (event.messageEditorRequestResponse().get().selectionContext().toString() == "RESPONSE") {
+                args = event.messageEditorRequestResponse().get().requestResponse().response().toString().substring(event.messageEditorRequestResponse().get().selectionOffsets().get().startIndexInclusive(), event.messageEditorRequestResponse().get().selectionOffsets().get().endIndexExclusive());
+            } else if (event.messageEditorRequestResponse().get().selectionContext().toString() == "REQUEST") {
+                args = event.messageEditorRequestResponse().get().requestResponse().request().toString().substring(event.messageEditorRequestResponse().get().selectionOffsets().get().startIndexInclusive(), event.messageEditorRequestResponse().get().selectionOffsets().get().endIndexExclusive());
+            }
+
+            String finalArgs = args;
+            passiveBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "passive", finalArgs));
             menuItemList.add(passiveBcheck);
 
             return menuItemList;

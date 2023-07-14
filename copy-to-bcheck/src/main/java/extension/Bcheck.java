@@ -101,14 +101,12 @@ public class Bcheck implements ActionListener, ClipboardOwner {
                             "            detail: `"+bname.getText()+" found at {potential_path}.`\n" +
                             "            remediation: \"tbd.\"\n" +
                             "    end if";
-                    Toolkit.getDefaultToolkit().getSystemClipboard()
-                            .setContents(new StringSelection(template), this);
 
                 case "passive":
                     template = template +
                             "tags: \"passive\"\n\n" +
                             "given response then\n" +
-                            "    if {latest.response} matches \""+ regex.toString() +"\" then\n" +
+                            "    if {latest.response} matches \""+ regex.getText().replace('"', '\"') +"\" then\n" +
                             "        report issue:\n" +
                             "            severity: "+ severityList.getSelectedItem().toString() +"\n" +
                             "            confidence: "+ confidenceList.getSelectedItem().toString() +"\n" +
@@ -117,6 +115,8 @@ public class Bcheck implements ActionListener, ClipboardOwner {
                             "    end if";
             }
 
+            Toolkit.getDefaultToolkit().getSystemClipboard()
+                    .setContents(new StringSelection(template), this);
         }
     }
 
