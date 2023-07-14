@@ -8,6 +8,7 @@ import burp.api.montoya.ui.contextmenu.ContextMenuItemsProvider;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,6 @@ public class MyContextMenuItemsProvider implements ContextMenuItemsProvider
         this.api = api;
         hostBcheck = new JMenuItem("Copy host bcheck");
         passiveBcheck = new JMenuItem("Copy passive bcheck");
-
-        //api.logging().logToOutput("hi");
     }
 
     @Override
@@ -33,22 +32,34 @@ public class MyContextMenuItemsProvider implements ContextMenuItemsProvider
         if (event.isFromTool(ToolType.PROXY, ToolType.TARGET, ToolType.LOGGER, ToolType.REPEATER))
         {
             List<Component> menuItemList = new ArrayList<>();
+            String args = "";
 
             HttpRequestResponse requestResponse = event.messageEditorRequestResponse().isPresent() ? event.messageEditorRequestResponse().get().requestResponse() : event.selectedRequestResponses().get(0);
 
+            if (event.messageEditorRequestResponse().isPresent()) {
 
-            hostBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "host" , ""));
+                String context = event.messageEditorRequestResponse().get().selectionContext().toString();
+                if (event.messageEditorRequestResponse().get().selectionOffsets().isPresent()) {
+                    if (context.equals("RESPONSE")) {
+                        args = event.messageEditorRequestResponse().get().requestResponse().response().toString().substring(event.messageEditorRequestResponse().get().selectionOffsets().get().startIndexInclusive(), event.messageEditorRequestResponse().get().selectionOffsets().get().endIndexExclusive());
+                    } else if (context.equals("REQUEST")) {
+                        args = event.messageEditorRequestResponse().get().requestResponse().request().toString().substring(event.messageEditorRequestResponse().get().selectionOffsets().get().startIndexInclusive(), event.messageEditorRequestResponse().get().selectionOffsets().get().endIndexExclusive());
+                    }
+                }
+            }
+            String finalArgs = args;
+
+            // maybe a shit way but idk another way of prevent it to add infinite action listeners
+            for (ActionListener listener : hostBcheck.getActionListeners()) {
+                hostBcheck.removeActionListener(listener);
+            }
+            hostBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "host", finalArgs));
             menuItemList.add(hostBcheck);
 
-            String args = "";
-
-            if (event.messageEditorRequestResponse().get().selectionContext().toString() == "RESPONSE") {
-                args = event.messageEditorRequestResponse().get().requestResponse().response().toString().substring(event.messageEditorRequestResponse().get().selectionOffsets().get().startIndexInclusive(), event.messageEditorRequestResponse().get().selectionOffsets().get().endIndexExclusive());
-            } else if (event.messageEditorRequestResponse().get().selectionContext().toString() == "REQUEST") {
-                args = event.messageEditorRequestResponse().get().requestResponse().request().toString().substring(event.messageEditorRequestResponse().get().selectionOffsets().get().startIndexInclusive(), event.messageEditorRequestResponse().get().selectionOffsets().get().endIndexExclusive());
+            // maybe a shit way but idk another way of prevent it to add infinite action listeners
+            for (ActionListener listener : passiveBcheck.getActionListeners()) {
+                passiveBcheck.removeActionListener(listener);
             }
-
-            String finalArgs = args;
             passiveBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "passive", finalArgs));
             menuItemList.add(passiveBcheck);
 

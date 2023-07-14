@@ -20,6 +20,7 @@ public class CopyToBcheck implements BurpExtension
         // register menu entry
         api.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider(api));
 
+        logging.logToOutput("Extension loaded.");
         // throw an exception that will appear in our error stream
         //throw new RuntimeException("Hello exception.");
     }
