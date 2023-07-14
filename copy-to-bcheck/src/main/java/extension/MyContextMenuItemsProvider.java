@@ -15,12 +15,14 @@ public class MyContextMenuItemsProvider implements ContextMenuItemsProvider
 {
 
     private final MontoyaApi api;
-    private final JMenuItem copyRequestToBcheck;
+    private final JMenuItem hostBcheck;
+    private final JMenuItem passiveBcheck;
 
     public MyContextMenuItemsProvider(MontoyaApi api)
     {
         this.api = api;
-        copyRequestToBcheck = new JMenuItem("Copy bcheck per host");
+        hostBcheck = new JMenuItem("Copy host bcheck");
+        passiveBcheck = new JMenuItem("Copy passive bcheck");
 
         //api.logging().logToOutput("hi");
     }
@@ -34,8 +36,12 @@ public class MyContextMenuItemsProvider implements ContextMenuItemsProvider
 
             HttpRequestResponse requestResponse = event.messageEditorRequestResponse().isPresent() ? event.messageEditorRequestResponse().get().requestResponse() : event.selectedRequestResponses().get(0);
 
-            copyRequestToBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "host"));
-            menuItemList.add(copyRequestToBcheck);
+
+            hostBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "host" , ""));
+            menuItemList.add(hostBcheck);
+
+            passiveBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "passive", event.messageEditorRequestResponse().get().requestResponse().response().toString().substring(event.messageEditorRequestResponse().get().selectionOffsets().get().startIndexInclusive(), event.messageEditorRequestResponse().get().selectionOffsets().get().endIndexExclusive())));
+            menuItemList.add(passiveBcheck);
 
             return menuItemList;
         }

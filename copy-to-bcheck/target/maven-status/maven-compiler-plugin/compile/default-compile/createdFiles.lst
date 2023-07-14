@@ -1,1 +1,3 @@
 extension/Bcheck.class
+extension/CopyToBcheck.class
+extension/MyContextMenuItemsProvider.class
