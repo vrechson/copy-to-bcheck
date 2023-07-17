@@ -9,12 +9,14 @@ public class CopyToBcheck implements BurpExtension
     @Override
     public void initialize(MontoyaApi api)
     {
+        String version = "v1.0";
         // set extension name
         api.extension().setName("Copy to bcheck extension");
 
         Logging logging = api.logging();
 
         // write a message to our output stream
+        logging.logToOutput("Copy to bcheck, version: "+version);
         logging.logToOutput("Loading extension.");
 
         // register menu entry
