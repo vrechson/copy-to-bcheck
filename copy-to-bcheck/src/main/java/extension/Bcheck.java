@@ -222,7 +222,7 @@ public class Bcheck implements ActionListener, ClipboardOwner, Runnable {
                     String body = this.request.request().bodyToString();
 
                     template +=
-                            "tags: \"entry\"\n\n" +
+                            "tags: \"host-level\"\n\n" +
                             "\nrun for each:\n" +
                             "    potential_path =\n" +
                             "        \""+ path +"\"\n\n" +
@@ -314,7 +314,19 @@ public class Bcheck implements ActionListener, ClipboardOwner, Runnable {
                                 template += " in";
                             }
 
-                    template += " \""+ regex.getText().replaceAll("\"", "\\\\\\\"") +"\" then\n" +
+                    template += " \""+ regex.getText().replaceAll("\"", "\\\\\\\"") + "\" or {latest.request}";
+
+                            if (successList.getSelectedItem().equals("matches")) {
+                                template += " matches";
+                            } else if (successList.getSelectedItem().equals("is")) {
+                                template += " is";
+                            } else if (successList.getSelectedItem().equals("differs")) {
+                                template += " differs";
+                            } else if (successList.getSelectedItem().equals("in")) {
+                                template += " in";
+                            }
+
+                    template += " \""+ regex.getText().replaceAll("\"", "\\\\\\\"") + "\" then\n" +
                             "        report issue:\n" +
                             "            severity: "+ severityList.getSelectedItem().toString().toLowerCase() +"\n" +
                             "            confidence: "+ confidenceList.getSelectedItem().toString().toLowerCase() +"\n" +
@@ -325,7 +337,7 @@ public class Bcheck implements ActionListener, ClipboardOwner, Runnable {
 
                 case "insertion":
                     template +=
-                            "tags: \"insertion\"\n\n" +
+                            "tags: \"insertion-point-level\"\n\n" +
                             "define:\n" +
                             "    insertion=\""+insertion.getText()+"\"\n" +
                             "    answer=\""+regex.getText()+"\"\n" +

