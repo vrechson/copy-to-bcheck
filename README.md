@@ -4,7 +4,9 @@ The purpose of this extension is to streamline the process of creating simple bc
 
 Note that this extension will 
 
-![Example of usage](copy-to-bcheck/examples/screenshots/example1.png)
+<p align="center">
+  <img width="460" src="copy-to-bcheck/examples/screenshots/example1.png">
+</p>
 
 ## Installation
 
@@ -18,7 +20,9 @@ In the dialog that appears, click on the "Choose file" or "Select file" button.
 5. Click on "Next" to proceed with the installation.
 6. If no errors occured, the extension will be working.
    
-![Installing the extension](copy-to-bcheck/examples/screenshots/example2.png)
+<p align="center">
+  <img width="460" src="copy-to-bcheck/examples/screenshots/example2.png">
+</p>
 
 Click in next and check if there is no errors on the output.
 
@@ -31,7 +35,9 @@ This extension offers support for creating three different types of bcheck scrip
 3. From the context menu that appears, select the option related to the extension.
 4. In the extension's context menu, choose the specific bcheck script you want to generate.
 
-![Using the extension](copy-to-bcheck/examples/screenshots/example3.png)
+<p align="center">
+  <img width="460" src="copy-to-bcheck/examples/screenshots/example3.png">
+</p>
 
 Below you can understand better each kind of script:
 
@@ -39,15 +45,25 @@ Below you can understand better each kind of script:
 The host bcheck script provided by this extension is designed to run once for each scanned host. It is based on the PortSwigger base host script and allows users to make specific changes according to their requirements.
 
 Once you have right-clicked on a request or response and selected the "Copy to host bcheck" option from the extension's context menu, a new window will appear. In this window, you can provide additional details to customize the generated bcheck script according to your requirements. The window might look like this:
-![Creating the template](copy-to-bcheck/examples/screenshots/example1.png)
+
+<p align="center">
+  <img width="460" src="copy-to-bcheck/examples/screenshots/example1.png">
+</p>
+
 
 After providing the necessary information, click the "OK" button. The extension will then copy the generated bcheck script to your clipboard, ready to be pasted in the bcheck creation menu or any text editor of your choice:
-![Result](copy-to-bcheck/examples/screenshots/example4.png)
+
+<p align="center">
+  <img width="460" src="copy-to-bcheck/examples/screenshots/example4.png">
+</p>
 
 An important time-saving feature of the extension is the ability to automatically import selected text from the request or response into the ``Value`` input field when using the ``Copy to host bcheck`` option.
 
 If you have selected a specific piece of text within the request or response, such as a parameter value or a particular header, the extension will detect it and automatically populate the ``Value`` input field in the additional details window with the selected text. 
-![Original request](copy-to-bcheck/examples/screenshots/example5.png)
+
+<p align="center">
+  <img width="460" src="copy-to-bcheck/examples/screenshots/example5.png">
+</p>
 
 The folder examples/request also includes the request used in the screenshot for validation purposes.
 
