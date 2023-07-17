@@ -18,12 +18,14 @@ public class MyContextMenuItemsProvider implements ContextMenuItemsProvider
     private final MontoyaApi api;
     private final JMenuItem hostBcheck;
     private final JMenuItem passiveBcheck;
+    private final JMenuItem entryBcheck;
 
     public MyContextMenuItemsProvider(MontoyaApi api)
     {
         this.api = api;
-        hostBcheck = new JMenuItem("Copy host bcheck");
-        passiveBcheck = new JMenuItem("Copy passive bcheck");
+        hostBcheck = new JMenuItem("Copy to host bcheck");
+        passiveBcheck = new JMenuItem("Copy to passive bcheck");
+        entryBcheck = new JMenuItem("Copy to insertion bcheck");
     }
 
     @Override
@@ -62,6 +64,13 @@ public class MyContextMenuItemsProvider implements ContextMenuItemsProvider
             }
             passiveBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "passive", finalArgs));
             menuItemList.add(passiveBcheck);
+
+            // maybe a shit way but idk another way of prevent it to add infinite action listeners
+            for (ActionListener listener : entryBcheck.getActionListeners()) {
+                entryBcheck.removeActionListener(listener);
+            }
+            entryBcheck.addActionListener(l -> new Bcheck(api, requestResponse, "insertion", finalArgs));
+            menuItemList.add(entryBcheck);
 
             return menuItemList;
         }
