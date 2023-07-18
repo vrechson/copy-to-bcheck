@@ -2,7 +2,7 @@
 
 The purpose of this extension is to streamline the process of creating simple bcheck scripts, reducing the time required to generate them. It works in conjunction with the data provided by the pentester, allowing them to easily copy requests from the Repeater tool and automatically format them into a bcheck script.
 
-Note that this extension will 
+Note that this extension is only capable of generate simple bcheck scripts based on a few set of PortSwigger's example scripts.
 
 <p align="center">
   <img width="460" src="copy-to-bcheck/examples/screenshots/example1.png">
